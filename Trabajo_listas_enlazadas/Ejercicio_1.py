@@ -11,9 +11,6 @@ class Animal:
         self.tipo = tipo
         self.edad = edad
 
-    def __eq__(self, other):
-        return self.tipo == other.tipo and self.edad == other.edad
-
     def __str__(self):
         return f"Animal: {self.tipo}, Edad: {self.edad}"
 
@@ -30,6 +27,9 @@ class ListaEnlazada:
 
     def es_vacio(self):
         return self.cabeza is None
+
+    def son_iguales(self, animal1: Animal, animal2: Animal):
+        return animal1.tipo == animal2.tipo and animal1.edad == animal2.edad
 
     def agregar_nodo(self, animal: Animal):
         if self.buscar_elemento(animal):
@@ -54,19 +54,13 @@ class ListaEnlazada:
             print(nodo_actual.animal)
             nodo_actual = nodo_actual.next
 
-    def imprimir_recursivo(self, nodo=None):
-        if nodo is None:
-            nodo = self.cabeza
-        if nodo is not None:
-            print(nodo.animal)
-            self.imprimir_recursivo(nodo.next)
 
     def eliminar(self, animal: Animal):
         nodo_actual = self.cabeza
         anterior = None
         while nodo_actual is not None:
-            if nodo_actual.animal == animal:
-                if anterior is None:  
+            if self.son_iguales(nodo_actual.animal, animal):
+                if anterior is None:
                     self.cabeza = nodo_actual.next
                 else:
                     anterior.next = nodo_actual.next
@@ -80,22 +74,21 @@ class ListaEnlazada:
         nodo_actual = self.cabeza
         c = 0
         while nodo_actual is not None:
-            if nodo_actual.animal == animal:
+            if self.son_iguales(nodo_actual.animal, animal):
                 return f"El animal {nodo_actual.animal} está en la posición {c}"
             nodo_actual = nodo_actual.next
             c += 1
-        return None  
+        return None
 
 
 
 def mostrar_menu():
-    print("\n--- Sistema de Control del Parque Zoológico ---")
+    print("Sistema de Control del Parque Zoológico")
     print("1. Agregar un animal")
     print("2. Eliminar un animal")
-    print("3. Mostrar animales (bucle)")
-    print("4. Mostrar animales (recursivo)")
-    print("5. Buscar un animal")
-    print("6. Salir")
+    print("3. Mostrar animales ")
+    print("4. Buscar un animal")
+    print("5. Salir")
     print("----------------------------------------------")
 
 
@@ -122,11 +115,8 @@ def main():
             print("\nLista de animales (bucle):")
             zoologico.imprimir()
 
-        elif opcion == "4":
-            print("\nLista de animales (recursivo):")
-            zoologico.imprimir_recursivo()
 
-        elif opcion == "5":
+        elif opcion == "4":
             tipo = input("Ingrese el tipo de animal a buscar: ")
             edad = int(input("Ingrese la edad del animal a buscar: "))
             resultado = zoologico.buscar_elemento(Animal(edad, tipo))
@@ -135,7 +125,7 @@ def main():
             else:
                 print(f"El animal {tipo} no se encuentra en la lista.")
 
-        elif opcion == "6":
+        elif opcion == "5":
             print("Saliendo del sistema...")
             break
 
