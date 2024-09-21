@@ -83,7 +83,7 @@ class ListaEnlazada:
 
 
 def mostrar_menu():
-    print("Sistema de Control del Parque Zoológico")
+    print("Sistema de Control del Parque Zoológico.")
     print("1. Agregar un animal")
     print("2. Eliminar un animal")
     print("3. Mostrar animales ")
