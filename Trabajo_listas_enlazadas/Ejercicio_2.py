@@ -91,7 +91,7 @@ class SistemaGestionTareas:
 def menu():
     sistema = SistemaGestionTareas()
     while True:
-        print("\n--- Sistema de Gestión de Tareas ---")
+        print("Sistema de Gestión de Tareas")
         print("1. Agregar tarea")
         print("2. Eliminar tarea")
         print("3. Mostrar todas las tareas")
